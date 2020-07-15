@@ -91,9 +91,13 @@ h3 {
   font-size: 30px;
   color: rgb(129, 129, 129);
   margin-right: 30px;
-
+  cursor: pointer;
+  user-select: none; /* can't select the icons */
 }
 
+.fas:hover {
+  filter: brightness(80%); /* will appear 20% darker on hover */
+}
 
 
 .main-button {
