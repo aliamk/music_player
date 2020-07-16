@@ -117,7 +117,7 @@ function updateProgressBar(e) {
     if (durationSeconds) { // If a value exists (not a Nan), dislpay the value
       durationEl.textContent = `${durationMinutes}:${durationSeconds}`
     }
-    //  Calculate display for current
+    //  Calculate display for current time
     const currentMinutes = Math.floor(currentTime / 60)
     let currentSeconds = Math.floor(currentTime % 60)
     if (currentSeconds < 10) {
@@ -128,7 +128,22 @@ function updateProgressBar(e) {
   }
 }
 
+// Set Progress Bar
+function setProgressBar(e) {
+  // console.log(e): looking for mouseEvent => srcElement => clientWidth + offsetX
+  const width = this.clientWidth // 'this' points to the element that receives the event
+  // console.log('width:', width) We get the maximum length/width of the bar
+  const clickX = e.offsetX // We get the point at which user clicks
+  // console.log('clickX', clickX)
+  const { duration } = music
+  // console.log(clickX / width) Gives the percentage of the prog bar where the user clicked
+  // console.log((clickX / width) * duration ) Gives the seconds of the song
+  music.currentTime = ((clickX / width) * duration ) 
+}
+
 // Event Listeners 
 prevBtn.addEventListener('click', prevSong)
 nextBtn.addEventListener('click', nextSong)
+music.addEventListener('ended', nextSong) // play next song at end of current song
 music.addEventListener('timeupdate', updateProgressBar)
+progressContainer.addEventListener('click', setProgressBar)
